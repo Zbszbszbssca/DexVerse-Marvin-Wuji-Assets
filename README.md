@@ -1,55 +1,28 @@
-# DexVerse Marvin/Wuji Assets
+# DexVerse Marvin/WUJI asset
 
-Versioned robot assets for the Marvin Pro dual seven-axis arm with two Wuji
-20-DoF hands. This repository is intentionally separate from the DexVerse
-source repository because it contains generated USD binaries and STL meshes.
+This repository distributes one robot: the real-machine Marvin Pro dual arm
+with two first-generation WUJI hands. The 54-joint articulation, wrist camera
+mounts, dark hand appearance, and collision geometry are baked into
+`robot_agents/marvin_wuji/marvin_wuji.usdc`. Its only local dependency is
+`robot_agents/marvin_wuji/textures/color_121212.hdr`.
 
-## Install
-
-Clone this repository next to `DexVerse`, then run the installer shipped by
-the source repository:
+Install beside DexVerse:
 
 ```bash
 bash ../DexVerse/scripts/setup/install_marvin_wuji_assets.sh "$PWD" ../DexVerse
-```
-
-The directory layout mirrors the destination below
-`source/dexverse/dexverse/robot_agents/`; the installer copies assets without
-deleting or overwriting the Python integration source.
-
-## Contents
-
-- `robot_agents/marvin_wuji/fixed_marvin_wuji/`: runtime composite USD;
-- `robot_agents/marvin_wuji/source/marvin_pro/`: pristine Marvin source URDF,
-  meshes, provenance and license;
-- `robot_agents/wuji/floating_wuji_left/` and `floating_wuji_right/`: floating
-  Wuji USD assets used by the original-hand test paths.
-
-The composite removes the stock Marvin grippers/cameras and attaches the Wuji
-palm models to `flange_L` and `flange_R`. Runtime actuator and IK behavior is
-defined in the DexVerse source repository, not in this repository.
-
-The intermediate composite URDF is deliberately not published: Isaac Lab's
-URDF importer requires resolved mesh paths, so that generated file embeds the
-build machine's absolute directories. The checked-in USD is self-contained
-and portable. Use the generator in the source repository if the asset must be
-rebuilt on another machine.
-
-## Integrity
-
-After cloning, verify all assets:
-
-```bash
 sha256sum --check MANIFEST.sha256
 ```
 
-No file currently exceeds GitHub's 100 MB per-file limit. Do not add Isaac
-Sim, CloudXR, datasets, checkpoints, caches, or machine-local configuration.
+No floating-hand assets, stock gripper URDF, generated URDF, or intermediate
+CAD are part of this runtime bundle. The original user-supplied CAD and
+third-party WUJI description must be obtained separately if the binary robot
+asset needs to be rebuilt; editing only this USD does not reproduce the
+original authoring pipeline. DexVerse owns the actuator, IK and camera settings.
 
-## Licensing and provenance
+## Licenses
 
-This is a mixed-provenance asset bundle. See [`LICENSES.md`](LICENSES.md), the
-license files under `licenses/`, and the Marvin source provenance at
-`robot_agents/marvin_wuji/source/marvin_pro/SOURCE.md`. Generated USD files are
-derivative representations of those source descriptions and retain their
-corresponding notices.
+The Marvin-derived geometry is MIT licensed, Copyright 2025 Tianxing Chen;
+see `licenses/MARVIN_PRO_LICENSE`. The WUJI-derived hand geometry is MIT
+licensed, Copyright 2025 Wuji Technology; see
+`licenses/WUJI_DESCRIPTION_LICENSE`. Preserve both notices when redistributing
+the USD. DexVerse source code is separately BSD-3-Clause licensed.

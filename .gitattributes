@@ -1,7 +1,3 @@
-*.usd binary
-*.usda text
 *.usdc binary
-*.stl binary
-*.STL binary
-*.urdf text eol=lf
+*.hdr binary
 *.md text eol=lf
